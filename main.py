@@ -1,9 +1,14 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from llm_handler import LLMHandler
 
 app = FastAPI()
 
 llm_handler = LLMHandler()
+
+
+class SummarizeRequest(BaseModel):
+    text: str
 
 # Route pour vérifier l'état du serveur
 @app.get("/health")
@@ -29,16 +34,15 @@ def health_check():
 
 # Route pour résumer un texte
 @app.post("/summarize")
-def summarize_text(text: str):
+def summarize_text(request: SummarizeRequest):
     """
-    Reçoit un texte et retourne un résumé généré par le LLM.
+    Reçoit un texte brut (format JSON) et retourne un résumé généré par le LLM.
 
-    :param text: Texte à résumer.
+    :param request: JSON payload with a "text" field.
     :return: Résumé du texte.
     """
-    summary = llm_handler.summarize_text(text)
+    summary = llm_handler.summarize_text(request.text)
     if summary:
         return {"summary": summary}
     else:
         raise HTTPException(status_code=500, detail="Erreur lors de la génération du résumé")
-

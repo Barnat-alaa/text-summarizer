@@ -25,13 +25,13 @@ class LLMHandler:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "Tu es un assistant qui résume des textes."},
-                    {"role": "user", "content": f"Résume ce texte en {max_length} mots maximum : {text}"}
+                {"role": "system", "content": "Tu es un assistant qui résume des textes. Assure-toi que chaque phrase est complète et se termine correctement."},
+                {"role": "user", "content": f"Résume ce texte en {max_length} mots maximum. Ne commence pas la réponse par 'Voici un résumé du texte'. Écris directement le résumé, en t'assurant que chaque phrase est complète : {text} et je veux 4 courtes phrases qui résument le texte."}
                 ],
-                max_tokens=max_length 
+                # max_tokens= (max_length + 50),
+                stop=["\n"]
             )
 
-            
             summary = response.choices[0].message.content.strip()
             return summary
 
