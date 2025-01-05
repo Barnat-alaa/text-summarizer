@@ -25,11 +25,11 @@ http://localhost:8000
 ### **Option 2: Running locally**
 1. clone the repository:
 git clone https://github.com/Barnat-alaa/text-summarizer.git
-2. Access the application folder:
+2. Access the application folder: 
 cd text-summarizer
-3. Temporarily Allow Script Execution
+3. Temporarily Allow Script Execution : 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-4. Activate Python Virtual Environment
+4. Activate Python Virtual Environment : 
 .\venv\Scripts\activate 
 5. Install dependencies:
 pip install -r requirements.txt
