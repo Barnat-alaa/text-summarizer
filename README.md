@@ -25,11 +25,17 @@ http://localhost:8000
 ### **Option 2: Running locally**
 1. clone the repository:
 git clone https://github.com/Barnat-alaa/text-summarizer.git
-2. Install dependencies:
+2. Access the application folder:
+cd text-summarizer
+3. Temporarily Allow Script Execution
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+4. Activate Python Virtual Environment
+.\venv\Scripts\activate 
+5. Install dependencies:
 pip install -r requirements.txt
-3. Run the FastAPI server:
-uvicorn main:app --host 0.0.0.0 --port 8000
-4. Access the API at:
+6. Run the FastAPI server:
+uvicorn main:app --reload 
+7. Access the API at:
 http://localhost:8000
 
 ---
