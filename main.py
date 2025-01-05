@@ -10,7 +10,7 @@ app = FastAPI()
 
 llm_handler = LLMHandler()
 
-# Dependency to get the database session
+
 def get_db():
     db = SessionLocal()
     try:
