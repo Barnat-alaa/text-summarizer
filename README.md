@@ -20,7 +20,7 @@ This is a mini-application that summarizes text using a Large Language Model (LL
 docker pull barnatalaa/text_summarizer:3.0
 2. Run the container:
 docker run -d -p 8000:8000 --name text_summarizer_container barnatalaa/text_summarizer:3.0
-3.Access the API at:
+3. Access the API at:
 http://localhost:8000
 ### **Option 2: Running locally**
 1. clone the repository:
