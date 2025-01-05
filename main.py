@@ -17,27 +17,37 @@ def get_db():
         db.close()
 
 class SummarizeRequest(BaseModel):
-    text: str    
+    text: str  
+
+#route qui envoie un message d'acceuil
+@app.get("/")
+def welcome_message():
+    return {
+        "message": "Bienvenue ! Ceci est un serveur FastAPI pour résumer des textes."
+    }
 
 # Route pour vérifier l'état du serveur
 @app.get("/health")
 def health_check():
     """
-    Ce point de terminaison vérifie si le serveur fonctionne.
+    Ce point de terminaison vérifie si le serveur et l'API fonctionnent.
 
     Retourne :
         dict : Un message indiquant que le serveur est en fonctionnement.
 
     Exceptions :
-        HTTPException : Si le serveur ne fonctionne pas, retourne un code de statut 500 avec un message d'erreur.
+        HTTPException : Si le serveur ou l'API ne fonctionne pas, retourne un code de statut 500 avec un message d'erreur.
     """
     try:
-        # Simuler une vérification de l'état (par exemple, vérifier la connexion à la base de données, les services externes, etc.)
-        # Si tout est en ordre, retourner un message de succès
+        # Vérifie si l'API fonctionne
+        if not llm_handler.check_api():
+            raise Exception("L'API de résumé de texte ne fonctionne pas.")
+
         return {"status": "Le serveur est en fonctionnement"}
+    
     except Exception as e:
-        # Si quelque chose ne va pas, lever une HTTPException avec un code de statut 500
-        raise HTTPException(status_code=500, detail="Le serveur ne fonctionne pas")
+        raise HTTPException(status_code=500, detail=f"Le serveur ne fonctionne pas : {str(e)}")
+   
 
 # Route pour résumer un texte
 @app.post("/summarize")
