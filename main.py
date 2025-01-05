@@ -2,7 +2,9 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from llm_handler import LLMHandler
 from sqlalchemy.orm import Session
-from database import SessionLocal, Summary
+from database import SessionLocal, Summary, engine, Base
+
+Base.metadata.create_all(bind=engine) #i added this to create the summary.db file when it launches
 
 app = FastAPI()
 
